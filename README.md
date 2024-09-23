@@ -35,8 +35,9 @@ O objetivo principal é avaliar suas habilidades de desenvolvimento backend com 
     - Implementação de **BDD (Behavior-Driven Development)** para o backend usando ferramentas como Behave ou Pytest-BDD.
 
 ## Entrega:
-- Enviar o código em um repositório no GitHub ou outra plataforma de sua escolha.
+- Enviar o código em um repositório no GitHub ou outra plataforma de sua escolha através do e-mail: vagas@digitalsys.com.br
 - Incluir um arquivo README com as instruções de instalação e execução do projeto.
+- ** Prazo Final para recebimento dos desafios **: 31/10/2024
 
 ## Tutoriais recomendados:
 - **Django**: [Django - Tutorial oficial](https://docs.djangoproject.com/en/stable/intro/tutorial01/)
