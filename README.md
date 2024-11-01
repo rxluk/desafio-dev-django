@@ -9,7 +9,6 @@ cat <<EOL > DOCUMENTATION.md
 5. [Uso do Sistema](#uso-do-sistema)
 6. [Próximos Passos](#próximos-passos)
 7. [Contribuições](#contribuições)
-8. [Licença](#licença)
 
 ## Descrição do Projeto
 O sistema de recrutamento Pegho é uma aplicação web desenvolvida em Django para facilitar o gerenciamento de currículos e processos seletivos. O projeto permite que candidatos se cadastrem, insiram suas experiências e formções, e que recrutadores analisem os dados coletados.
