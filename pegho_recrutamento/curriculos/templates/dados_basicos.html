@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Básicos - Sistema de Recrutamento da Pegho</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'candidato/css/styles.css' %}"> <!-- CSS personalizado -->
+</head>
+
+<body>
+    <div class="d-flex">
+        <!-- Sidebar de Navegação -->
+        <nav class="sidebar bg-dark text-white">
+            <div class="sidebar-header text-center">
+                <h4 class="sidebar-title">Candidato</h4>
+            </div>
+            <ul class="list-unstyled components">
+                <!-- Links de navegação -->
+                <li class="nav-item">
+                  <a class="nav-link active" href="#" onclick="if (validarDadosBasicos()) { window.location.href = '/dados-basicos'; }">Dados Básicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarDadosBasicos()) { window.location.href = '/experiencia'; }">Experiências Profissionais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarDadosBasicos()) { window.location.href = '/formacao'; }">Formação Acadêmica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarDadosBasicos()) { window.location.href = '/analisar'; }">Analisar</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <div class="container-fluid main-content">
+            <h1 class="mt-5 text-center">Cadastro de Candidato</h1>
+            <p class="text-center">Por favor, insira seus dados básicos e endereço.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="mt-4">Dados Básicos</h2>
+                    <form class="mt-4" id="form-dados" onsubmit="armazenarDados(event)">
+                        <!-- Campo de Nome -->
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
+                        </div>
+                        <!-- Campo de Sobrenome -->
+                        <div class="form-group">
+                            <label for="sobrenome">Sobrenome:</label>
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu sobrenome" required>
+                        </div>
+                        <!-- Campo de Data de Nascimento -->
+                        <div class="form-group">
+                            <label for="data_nascimento">Data de Nascimento:</label>
+                            <input type="date" class="form-control" id="data_nascimento" required>
+                        </div>
+                        <!-- Campo de Email -->
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+                        </div>
+                        <!-- Campo de Telefone -->
+                        <div class="form-group">
+                            <label for="telefone">Telefone:</label>
+                            <input type="tel" class="form-control" id="telefone" placeholder="Digite seu telefone" required>
+                        </div>
+
+                        <h2 class="mt-4">Endereço</h2>
+                        <!-- Campo de País -->
+                        <div class="form-group">
+                            <label for="pais">País:</label>
+                            <input type="text" class="form-control" id="pais" placeholder="Digite seu país" required>
+                        </div>
+                        <!-- Campo de Estado -->
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <input type="text" class="form-control" id="estado" placeholder="Digite seu estado" required>
+                        </div>
+                        <!-- Campo de Cidade -->
+                        <div class="form-group">
+                            <label for="cidade">Cidade:</label>
+                            <input type="text" class="form-control" id="cidade" placeholder="Digite sua cidade" required>
+                        </div>
+                        <!-- Campo de Rua -->
+                        <div class="form-group">
+                            <label for="rua">Rua:</label>
+                            <input type="text" class="form-control" id="rua" placeholder="Digite sua rua" required>
+                        </div>
+                        <!-- Campo de Número -->
+                        <div class="form-group">
+                            <label for="numero">Número:</label>
+                            <input type="text" class="form-control" id="numero" placeholder="Digite seu número" required>
+                        </div>
+                        <!-- Campo de Bairro -->
+                        <div class="form-group">
+                            <label for="bairro">Bairro:</label>
+                            <input type="text" class="form-control" id="bairro" placeholder="Digite seu bairro" required>
+                        </div>
+
+                        <!-- Botão para avançar para a próxima página -->
+                        <button type="submit" class="btn btn-primary">Próximo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Carregar arquivos JavaScript no final do body -->
+    <script src="{% static 'candidato/js/script.js' %}"></script>
+
+    <!-- Carregar dados ao iniciar a página -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            carregarDados(); // Carrega os dados assim que a página é aberta
+        });
+
+        // Função para armazenar dados e redirecionar
+        function armazenarDados(event) {
+            event.preventDefault(); // Previne o comportamento padrão do formulário
+            validarDadosBasicos();
+            salvarDados(); // Chama a função para salvar os dados
+            if (validarDadosBasicos()) { window.location.href = '/experiencia'; }; // Redireciona para a próxima página
+        }
+
+        // Salvar dados ao sair da página
+        window.addEventListener('beforeunload', function () {
+            validarDadosBasicos();
+            salvarDados(); // Chama a função salvarDados do arquivo scripts.js
+        });
+    </script>
+
+</body>
+
+</html>

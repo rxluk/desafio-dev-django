@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formação Acadêmica - Sistema de Recrutamento da Pegho</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'candidato/css/styles.css' %}">
+</head>
+
+<body>
+    <div class="d-flex">
+        <!-- Sidebar de Navegação -->
+        <nav class="sidebar bg-dark text-white">
+            <div class="sidebar-header text-center">
+                <h4 class="sidebar-title">Candidato</h4>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarFormacao()) { window.location.href = '/dados-basicos'; }">Dados Básicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarFormacao()) { window.location.href = '/experiencia'; }">Experiências Profissionais</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="#" onclick="if (validarFormacao()) { window.location.href = '/formacao'; }">Formação Acadêmica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarFormacao()) { window.location.href = '/analisar'; }">Analisar</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <div class="container-fluid">
+            <h1 class="mt-5 text-center">Cadastro de Formação Acadêmica</h1>
+            <p class="text-center">Por favor, insira suas formações acadêmicas.</p>
+
+            <!-- Seção de Formação Acadêmica -->
+            <h4 class="mt-4 text-center">Formação Acadêmica</h4>
+            <button id="add-formacao" class="btn btn-secondary mb-3 d-block mx-auto" onclick="adicionarFormacao()">Adicionar Formação</button>
+            <div id="formacoes-container" class="d-flex flex-column align-items-center"></div>
+
+            <!-- Botão para navegar para a página de Análise -->
+            <div class="text-center">
+                <button id="next-button" class="btn btn-primary mt-4" onclick="irParaAnalisar()">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'candidato/js/script.js' %}"></script>
+
+    <!-- Carregar as formações ao carregar a página -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            validarFormacao();
+            carregarFormacoes(); // Carrega as formações ao carregar a página
+        });
+
+        // Salvar dados ao sair da página
+        window.addEventListener('beforeunload', function () {
+            validarFormacao();
+            salvarFormacoes();
+        });
+
+        // Função para navegar para a página de Análise
+        function irParaAnalisar() {
+            validarFormacao();
+            salvarFormacoes(); // Salva as formações antes de navegar
+             if (validarFormacao()) { window.location.href = '/analisar'; }; // Navega para a próxima página
+        }
+    </script>
+</body>
+
+</html>

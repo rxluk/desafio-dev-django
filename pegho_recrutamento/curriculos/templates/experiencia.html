@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiências Profissionais - Sistema de Recrutamento da Pegho</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'candidato/css/styles.css' %}">
+</head>
+
+<body>
+    <div class="d-flex">
+        <!-- Sidebar de Navegação -->
+        <nav class="sidebar bg-dark text-white">
+            <div class="sidebar-header text-center">
+                <h4 class="sidebar-title">Candidato</h4>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="nav-item">
+                    <<a class="nav-link active" href="#" onclick="if (validarExperiencia()) { window.location.href = '/dados-basicos'; }">Dados Básicos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="#" onclick="if (validarExperiencia()) { window.location.href = '/experiencia'; }">Experiências Profissionais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarExperiencia()) { window.location.href = '/formacao'; }">Formação Acadêmica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="if (validarExperiencia()) { window.location.href = '/analisar'; }">Analisar</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <div class="container-fluid">
+            <h1 class="mt-5 text-center">Cadastro de Candidato</h1>
+            <p class="text-center">Por favor, insira suas experiências profissionais.</p>
+
+            <!-- Seção de Experiência Profissional -->
+            <h4 class="mt-4 text-center">Experiência Profissional</h4>
+            <button id="add-experiencia" class="btn btn-secondary mb-3 d-block mx-auto" onclick="adicionarExperiencia()">Adicionar Experiência</button>
+            <div id="experiencias-container" class="d-flex flex-column align-items-center"></div>
+
+            <!-- Botão para navegar para a página de Formação Acadêmica -->
+            <div class="text-center">
+                <button id="next-button" class="btn btn-primary mt-4" href="#" onclick="if (validarExperiencia()) { window.location.href = '/formacao'; }">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'candidato/js/script.js' %}"></script>
+
+    <!-- Carregar as experiências ao carregar a página -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            validarExperiencia();
+            carregarExperiencias(); // Carrega as experiências ao carregar a página
+        });
+
+        // Salvar dados ao sair da página
+        window.addEventListener('beforeunload', function () {
+            validarExperiencia();
+            salvarExperiencias();
+        });
+
+        // Função para navegar para a página de Formação Acadêmica
+        function irParaFormacao() {
+            salvarExperiencias(); // Salva as experiências antes de navegar
+            window.location.href = '/formacao'; // Navega para a próxima página
+        }
+
+        // Função para adicionar uma nova experiência
+        function adicionarExperiencia() {
+            const container = document.getElementById('experiencias-container');
+            const experienciaDiv = document.createElement('div');
+            experienciaDiv.classList.add('experiencia', 'mb-2', 'p-2', 'border', 'w-100');
+
+            experienciaDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="empresa">Empresa:</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome da empresa" required>
+                </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" class="form-control" placeholder="Digite seu cargo" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_inicio">Data de Início:</label>
+                    <input type="date" class="form-control" name="data_inicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_fim">Data de Fim:</label>
+                    <input type="date" class="form-control" name="data_fim">
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea class="form-control" placeholder="Digite uma descrição" required></textarea>
+                </div>
+                <button type="button" class="btn btn-danger" onclick="removerExperiencia(this)">Remover</button>
+            `;
+
+            container.appendChild(experienciaDiv);
+        }
+
+        // Função para remover uma experiência
+        function removerExperiencia(button) {
+            const experienciaDiv = button.parentElement;
+            experienciaDiv.remove();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Candidatos</title>
+    {% load static %} <!-- Carregando arquivos estáticos do Django -->
+    <link rel="stylesheet" href="{% static 'recrutador/css/styles.css' %}"> <!-- Seu CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Candidatos</h1>
+        <div id="candidatos"></div> <!-- Onde os candidatos serão exibidos -->
+    </div>
+    <script src="{% static 'recrutador/js/script.js' %}"></script> <!-- Seu JavaScript -->
+</body>
+</html>

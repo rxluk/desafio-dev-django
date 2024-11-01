@@ -1,48 +1,143 @@
+cat <<EOL > DOCUMENTATION.md
+# Documentação do Projeto Pegho - Sistema de Recrutamento
 
-# Desafio Técnico - Desenvolvedor Django
+## Índice
+1. [Descrição do Projeto](#descrição-do-projeto)
+2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+3. [Estrutura do Projeto](#estrutura-do-projeto)
+4. [Guia de Instalação](#guia-de-instalação)
+5. [Uso do Sistema](#uso-do-sistema)
+6. [Próximos Passos](#próximos-passos)
+7. [Contribuições](#contribuições)
+8. [Licença](#licença)
 
-A empresa **Pegho**, especializada em recrutamento e seleção, está crescendo rapidamente e percebeu a necessidade de um sistema que centralize as informações de seus candidatos. Para resolver esse desafio, a Pegho contratou a nossa consultoria para desenvolver um sistema que facilite o processo de contratação, permitindo que os candidatos enviem suas informações de currículo de forma organizada.
+## Descrição do Projeto
+O sistema de recrutamento Pegho é uma aplicação web desenvolvida em Django para facilitar o gerenciamento de currículos e processos seletivos. O projeto permite que candidatos se cadastrem, insiram suas experiências e formções, e que recrutadores analisem os dados coletados.
 
-Seu desafio será desenvolver esse **sistema de recrutamento**, onde os candidatos poderão submeter informações como dados pessoais, contatos, experiência profissional e formação acadêmica. O sistema será usado pela equipe de recrutamento da Pegho para avaliar os candidatos de maneira mais eficiente.
+## Tecnologias Utilizadas
+- **Back-end:** Django, Django REST Framework
+- **Front-end:** HTML, CSS, JavaScript, Bootstrap
+- **Banco de Dados:** SQLite (para desenvolvimento)
 
-O objetivo principal é avaliar suas habilidades de desenvolvimento backend com Django, mas também observar a implementação de um frontend funcional. Você pode desenvolver o frontend em Django puro ou utilizar frameworks como ReactJS, VueJS, Angular ou outro de sua preferência. A estilização do frontend não é o foco, mas será um diferencial caso seja feita.
+## Estrutura do Projeto
+```
+pegho_recrutamento/
+├── curriculos/
+│   ├── templates/                   # Templates HTML para renderização das páginas
+│   │   ├── list_candidatos.html      # Página para listar candidatos (interface do recrutador)
+│   │   ├── index.html                # Página inicial do projeto
+│   │   ├── formacao.html             # Página para adição de formações acadêmicas
+│   │   ├── experiencia.html          # Página para adição de experiências profissionais
+│   │   ├── dados_basicos.html        # Página para cadastro de dados pessoais e endereço do candidato
+│   │   └── analisar.html             # Página para análise final dos dados inseridos
+│   │
+│   ├── static/                       # Arquivos estáticos como CSS e JavaScript para front-end
+│   │   ├── recrutador/               # Arquivos para a interface do recrutador
+│   │   │   ├── js/
+│   │   │   │   └── script.js         # Script JavaScript específico para recrutadores
+│   │   │   └── css/
+│   │   │       └── styles.css        # Estilos específicos para a interface do recrutador
+│   │   ├── candidato/                # Arquivos para a interface do candidato
+│   │   │   ├── js/
+│   │   │   │   └── script.js         # Script JavaScript específico para candidatos
+│   │   │   └── css/
+│   │   │       └── styles.css        # Estilos específicos para a interface do candidato
+│   │
+│   ├── views.py                      # Views que controlam o fluxo de páginas e API para listagem/criação de candidatos
+│   ├── urls.py                       # URL configurations específicas para a aplicação "curriculos"
+│   ├── serializers.py                # Serializadores DRF para conversão e validação de dados entre modelos e JSON
+│   ├── models.py                     # Modelos de dados para candidatos, endereços, experiências e formações
+│   ├── admin.py                      # Configurações do Django Admin para gerenciamento de dados do candidato
+│   ├── tests.py                      # Testes unitários e de integração da aplicação
+│   └── apps.py                       # Configuração principal da aplicação Django "curriculos"
+│
+├── manage.py                         # Script de linha de comando para interações com o projeto Django
+├── db.sqlite3                        # Banco de dados SQLite usado em desenvolvimento
+│
+└── pegho_recrutamento/
+    ├── __init__.py                   # Arquivo de inicialização do projeto Django
+    ├── asgi.py                       # ASGI configuration para servidores compatíveis com async
+    ├── settings.py                   # Configurações principais do projeto Django, incluindo aplicações instaladas e banco de dados
+    ├── urls.py                       # URLs principais do projeto
+    └── wsgi.py                       # WSGI configuration para servidores web
+```
 
-## Requisitos:
-1. **Backend**:
-    - Implementar uma API ou interface em Django para gerenciar os currículos.
-    - Modelos de banco de dados para:
-        - Dados pessoais (nome, data de nascimento, etc.).
-        - Contato (email, telefone, endereço, etc.).
-        - Experiência profissional (cargo, empresa, período, descrição).
-        - Formação acadêmica (instituição, curso, período).
-    - CRUD completo para essas informações.
-    - Validações básicas dos dados (como formato de email, números de telefone, etc.).
-    - **Criação do Django Admin** para gerenciamento dos dados cadastrados.
+## Guia de Instalação
 
-2. **Frontend**:
-    - Pode ser feito em Django com templates ou em algum framework JS (React, Vue, Angular, etc.).
-    - Deve permitir que o usuário preencha e envie o currículo.
-    - Não há necessidade de estilização complexa, apenas funcionalidade.
+### Pré-requisitos
+- Python 3.8 ou superior
+- pip (gerenciador de pacotes Python)
 
-3. **Extras (opcionais, mas valorizados)**:
-    - Utilizar Django Rest Framework (DRF) para criar uma API REST.
-    - Utilização de Docker para containerização da aplicação.
-    - Implementar uma autenticação simples para proteger o sistema.
-    - Estilização básica no frontend com Bootstrap, TailwindCSS ou qualquer outro framework CSS.
+### Passos para Instalação
 
-4. **Diferenciais (não obrigatórios, mas valorizados)**:
-    - Implementação de **testes unitários** no backend.
-    - Implementação de **BDD (Behavior-Driven Development)** para o backend usando ferramentas como Behave ou Pytest-BDD.
+1. **Clone o repositório:**
+   ```
+   git clone https://github.com/rxluk/desafio-dev-django.git
+   cd pegho_recrutamento
+   ```
 
-## Entrega:
-- Enviar o código em um repositório no GitHub ou outra plataforma de sua escolha através do e-mail: vagas@digitalsys.com.br
-- Incluir um arquivo README com as instruções de instalação e execução do projeto.
-- ** Prazo Final para recebimento dos desafios **: 31/10/2024
+2. **Crie um ambiente virtual (opcional, mas recomendado):**
+   ```
+   python -m venv env
+   source env/bin/activate  # Linux/Mac
+   env\Scripts\activate     # Windows
+   ```
 
-## Tutoriais recomendados:
-- **Django**: [Django - Tutorial oficial](https://docs.djangoproject.com/en/stable/intro/tutorial01/)
-- **Django Rest Framework (DRF)**: [DRF - Tutorial oficial](https://www.django-rest-framework.org/tutorial/quickstart/)
-- **ReactJS**: [React - Documentação oficial](https://reactjs.org/tutorial/tutorial.html)
-- **VueJS**: [Vue.js - Guia oficial](https://vuejs.org/guide/essentials/application.html)
-- **Angular**: [Angular - Início rápido](https://angular.io/start)
-- **Docker**: [Docker - Documentação oficial](https://docs.docker.com/get-started/)
+3. **Instale as dependências:**
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. **Realize as migrações do banco de dados:**
+   ```
+   python manage.py migrate
+   ```
+
+5. **Inicie o servidor de desenvolvimento:**
+   ```
+   python manage.py runserver
+   ```
+   
+6. **Para acessar o painel administrativo do Django, crie um superusuário com o seguinte comando:**
+   ```
+   python manage.py runserver
+   ```
+
+7. **Acesse o aplicativo:**  
+   Abra o navegador e vá para `http://127.0.0.1:8000/`.
+
+8.**Acesse o painel administrativo:**
+   Para acessar o painel administrativo do Django, vá para `http://127.0.0.1:8000/admin/` e faça login com o superusuário que você criou.
+
+## Uso do Sistema
+
+### Funcionalidades
+- Cadastro de Candidatos
+- Adição de Experiências Profissionais
+- Inserção de Formação Acadêmica
+- Análise de Dados dos Candidatos
+
+### Navegação
+A interface é dividida em várias seções, incluindo:
+- Dados Básicos
+- Experiências Profissionais
+- Formação Acadêmica
+- Análise
+
+## Próximos Passos
+
+### Sugestões de Melhorias
+1. **Autenticação para Recrutadores:**
+   - Implementar um sistema de login e cadastro para recrutadores.
+   - Permitir que recrutadores acessem e gerenciem os dados dos candidatos.
+
+2. **Funcionalidades de Consulta:**
+   - Adicionar views para consulta e edição de dados dos candidatos.
+   - Implementar filtros e busca nos dados dos candidatos.
+
+3. **Melhorias na Interface:**
+   - Aprimorar o design da interface com mais elementos de UI/UX.
+   - Adicionar validações e feedbacks para o usuário.
+
+## Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests. Por favor, siga as diretrizes de contribuição.
